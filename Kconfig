@@ -1,0 +1,5 @@
+menuconfig TAHU
+	bool "Tahu library"
+	depends on MQTT_LIB
+	help
+	  This option enables the Tahu library.
