@@ -19,6 +19,9 @@
 #include <tahu.h>
 #include <tahu.pb.h>
 #include <pb_zephyr.h>
+#if defined(__ZEPHYR__)
+#include <posix/time.h>
+#endif
 
 static uint8_t payload_sequence;
 
