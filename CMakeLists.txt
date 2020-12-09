@@ -10,6 +10,7 @@ zephyr_library_sources(
     client_libraries/c/src/pb_common.c
     client_libraries/c/src/pb_decode.c
     client_libraries/c/src/pb_encode.c
+    client_libraries/c/src/pb_zephyr.c
     client_libraries/c/src/tahu.c
     client_libraries/c/src/tahu.pb.c
 )

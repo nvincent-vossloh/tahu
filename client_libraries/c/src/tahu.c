@@ -18,6 +18,7 @@
 #include <pb_encode.h>
 #include <tahu.h>
 #include <tahu.pb.h>
+#include <pb_zephyr.h>
 
 static uint8_t payload_sequence;
 
