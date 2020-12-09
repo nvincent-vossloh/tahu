@@ -22,6 +22,7 @@
 #if defined(__ZEPHYR__)
 #include <posix/time.h>
 #endif
+#include <inttypes.h>
 
 static uint8_t payload_sequence;
 
@@ -381,7 +382,7 @@ int init_dataset(org_eclipse_tahu_protobuf_Payload_DataSet *dataset,
 	const size_t key_size = num_of_columns * sizeof(char *);
 	dataset->columns = malloc(key_size);
 	if (dataset->columns == NULL) {
-		fprintf(stderr, "malloc(%lu) failure in init_dataset\n", key_size);
+		fprintf(stderr, "malloc(%zu) failure in init_dataset\n", key_size);
 		return -1;
 	}
 	for (int i = 0; i < num_of_columns; i++) {
@@ -395,7 +396,7 @@ int init_dataset(org_eclipse_tahu_protobuf_Payload_DataSet *dataset,
 	const size_t datatypes_size = num_of_columns * sizeof(uint32_t);
 	dataset->types = malloc(datatypes_size);
 	if (dataset->types == NULL) {
-		fprintf(stderr, "malloc(%lu) failure in init_dataset\n", datatypes_size);
+		fprintf(stderr, "malloc(%zu) failure in init_dataset\n", datatypes_size);
 		return -1;
 	}
 	memcpy(dataset->types, datatypes, datatypes_size);
@@ -403,7 +404,7 @@ int init_dataset(org_eclipse_tahu_protobuf_Payload_DataSet *dataset,
 	const size_t row_data_size = num_of_rows * sizeof(org_eclipse_tahu_protobuf_Payload_DataSet_Row);
 	dataset->rows = malloc(row_data_size);
 	if (dataset->rows == NULL) {
-		fprintf(stderr, "malloc(%lu) failure in init_dataset\n", row_data_size);
+		fprintf(stderr, "malloc(%zu) failure in init_dataset\n", row_data_size);
 		return -1;
 	}
 	memcpy(dataset->rows, row_data, row_data_size);
@@ -484,10 +485,10 @@ void print_metadata(const char *prefix, org_eclipse_tahu_protobuf_Payload_MetaDa
 		PP("%scontent_type=%s [%p]\n", prefix, metadata->content_type, metadata->content_type);
 	}
 	if (metadata->has_size) {
-		PP("%shas_size=%lu\n", prefix, metadata->size);
+		PP("%shas_size=%" PRIu64 "\n", prefix, metadata->size);
 	}
 	if (metadata->has_seq) {
-		PP("%sseq=%lu\n", prefix, metadata->seq);
+		PP("%sseq=%" PRIu64 "\n", prefix, metadata->seq);
 	}
 	if (metadata->file_name != NULL) {
 		PP("%sfile_name=%s [%p]\n", prefix, metadata->file_name, metadata->file_name);
@@ -522,7 +523,7 @@ void print_propertyvalue(const char *prefix, org_eclipse_tahu_protobuf_Payload_P
 		PP("%sint_value=%d\n", prefix, value->value.int_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_PropertyValue_long_value_tag:
-		PP("%slong_value=%ld\n", prefix, value->value.long_value);
+		PP("%slong_value=%" PRIu64 "\n", prefix, value->value.long_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_PropertyValue_float_value_tag:
 		PP("%sfloat_value=%f\n", prefix, value->value.float_value);
@@ -609,7 +610,7 @@ void print_datasetvalue(const char *prefix, org_eclipse_tahu_protobuf_Payload_Da
 		PP("%sint_value=%d\n", prefix, dsvalue->value.int_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_long_value_tag:
-		PP("%slong_value=%ld\n", prefix, dsvalue->value.long_value);
+		PP("%slong_value=%" PRIu64 "\n", prefix, dsvalue->value.long_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_DataSet_DataSetValue_float_value_tag:
 		PP("%sfloat_value=%f\n", prefix, dsvalue->value.float_value);
@@ -637,7 +638,7 @@ void print_dataset(const char *prefix, org_eclipse_tahu_protobuf_Payload_DataSet
 		prefix = EMPTY_PREFIX;
 	}
 	if (dataset_value->has_num_of_columns) {
-		PP("%snum_of_columns=%lu\n", prefix, dataset_value->num_of_columns);
+		PP("%snum_of_columns=%" PRIu64 "\n", prefix, dataset_value->num_of_columns);
 	}
 	PP("%scolumns=[%p] (count=%u)\n", prefix, dataset_value->columns, dataset_value->columns_count);
 	for (int i = 0; i < dataset_value->columns_count; i++) {
@@ -674,7 +675,7 @@ void print_template_parameter(const char *prefix, org_eclipse_tahu_protobuf_Payl
 		PP("%sint_value=%d\n", prefix, template_parameter->value.int_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_Template_Parameter_long_value_tag:
-		PP("%slong_value=%ld\n", prefix, template_parameter->value.long_value);
+		PP("%slong_value=%" PRIu64 "\n", prefix, template_parameter->value.long_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_Template_Parameter_float_value_tag:
 		PP("%sfloat_value=%f\n", prefix, template_parameter->value.float_value);
@@ -734,10 +735,10 @@ void print_metric(const char *prefix, org_eclipse_tahu_protobuf_Payload_Metric *
 		PP("%sname=%s [%p]\n", prefix, metric->name, metric->name);
 	}
 	if (metric->has_alias) {
-		PP("%salias=%ld\n", prefix, metric->alias);
+		PP("%salias=%" PRIu64 "\n", prefix, metric->alias);
 	}
 	if (metric->has_timestamp) {
-		PP("%stimestamp=%ld\n", prefix, metric->timestamp);
+		PP("%stimestamp=%" PRIu64 "\n", prefix, metric->timestamp);
 	}
 	if (metric->has_datatype) {
 		PP("%sdatatype=%u\n", prefix, metric->datatype);
@@ -764,7 +765,7 @@ void print_metric(const char *prefix, org_eclipse_tahu_protobuf_Payload_Metric *
 		PP("%sint_value=%d\n", prefix, metric->value.int_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_Metric_long_value_tag:
-		PP("%slong_value=%ld\n", prefix, metric->value.long_value);
+		PP("%slong_value=%" PRIu64 "\n", prefix, metric->value.long_value);
 		break;
 	case org_eclipse_tahu_protobuf_Payload_Metric_float_value_tag:
 		PP("%sfloat_value=%f\n", prefix, metric->value.float_value);
@@ -802,10 +803,10 @@ void print_payload(org_eclipse_tahu_protobuf_Payload *payload) {
 	char temp[64];
 	PP("-----PAYLOAD BEGIN-----\n");
 	if (payload->has_timestamp) {
-		PP("timestamp=%ld\n", payload->timestamp);
+		PP("timestamp=%" PRIu64 "\n", payload->timestamp);
 	}
 	if (payload->has_seq) {
-		PP("seq=%ld\n", payload->seq);
+		PP("seq=%" PRIu64 "\n", payload->seq);
 	}
 	if (payload->uuid != NULL) {
 		PP("uuid=%s [%p]\n", payload->uuid, payload->uuid);
