@@ -14,7 +14,9 @@
 #include <tahu.pb.h>
 
 #include <time.h>
+#if defined(__ZEPHYR__) && defined(CONFIG_ARCH_POSIX)
 #include <sys/time.h>
+#endif
 
 #ifdef __MACH__
 #include <mach/clock.h>
