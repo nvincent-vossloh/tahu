@@ -29,7 +29,8 @@
 #define _SPARKPLUGLIB_H_
 
 // Enable/disable debug messages
-#define SPARKPLUG_DEBUG 1
+// TODO: adds Kconfig entry to enable this flag
+//#define SPARKPLUG_DEBUG 1
 
 #ifdef SPARKPLUG_DEBUG
 #define DEBUG_PRINT(...) printf(__VA_ARGS__)
