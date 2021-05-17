@@ -651,7 +651,7 @@ void print_dataset(const char *prefix, org_eclipse_tahu_protobuf_Payload_DataSet
     PP("%srows=[%p] (count=%u)\n", prefix, dataset_value->rows, dataset_value->rows_count);
     for (int i = 0; i < dataset_value->rows_count; i++) {
         snprintf(temp, sizeof(temp), "%srow[%u].", prefix, i);
-        print_dataset_row(temp,&dataset_value->rows[i]);
+        print_dataset_row(temp, &dataset_value->rows[i]);
     }
     if (dataset_value->extensions != NULL) {
         PP("%sextensions=[%p]\n", prefix, dataset_value->extensions);
